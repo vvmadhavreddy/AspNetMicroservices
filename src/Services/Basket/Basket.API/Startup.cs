@@ -25,6 +25,11 @@ namespace Basket.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Registering redis connection and setting up the configuration for connecting to the redis DB
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = Configuration.GetValue<string>("CacheSettings:ConnectionString");
+            });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
